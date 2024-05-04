@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './AdminDashboard.css'; // Import the CSS file
+import React from "react";
+import { Link } from "react-router-dom";
+import "./AdminDashboard.css";
 
 const AdminPanel = () => {
   return (

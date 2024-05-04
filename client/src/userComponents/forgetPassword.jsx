@@ -1,40 +1,42 @@
-import React, { useState } from 'react';
-import './ForgetPassword.css'; // Import the CSS file for styling
-import { useNavigate } from 'react-router-dom'; // For navigation after successful update
-
+import React, { useState } from "react";
+import "./ForgetPassword.css";
+import { useNavigate } from "react-router-dom";
 const ForgetPassword = () => {
-  const [userId, setUserId] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const navigate = useNavigate(); // For redirecting after successful password change
+  const [userId, setUserId] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChangePassword = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
 
     try {
-      const response = await fetch('http://localhost:4000/api/v1/forget-password', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json', // Data format
-        },
-        body: JSON.stringify({ userId, newPassword }), // Data to be sent to the backend
-      });
+      const response = await fetch(
+        "http://localhost:4000/api/v1/forget-password",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId, newPassword }),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
-        setSuccessMessage(data.message); // Display success message
+        setSuccessMessage(data.message);
         alert("Password changed successfully.");
-        navigate('/user-login'); // Redirect to user login after successful password change
-        setErrorMessage(''); // Clear error message
+        navigate("/user-login");
+        setErrorMessage("");
       } else {
         const errorData = await response.json();
-        setErrorMessage(errorData.message || 'Failed to change password.');
-        setSuccessMessage('');
+        setErrorMessage(errorData.message || "Failed to change password.");
+        setSuccessMessage("");
       }
     } catch (error) {
-      setErrorMessage('An error occurred. Please try again later.');
-      setSuccessMessage('');
+      setErrorMessage("An error occurred. Please try again later.");
+      setSuccessMessage("");
     }
   };
 
@@ -63,8 +65,8 @@ const ForgetPassword = () => {
         <button type="submit">Change Password</button>
       </form>
 
-      {errorMessage && <p className="error-message">{errorMessage}</p>} 
-      {successMessage && <p className="success-message">{successMessage}</p>} 
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {successMessage && <p className="success-message">{successMessage}</p>}
     </div>
   );
 };

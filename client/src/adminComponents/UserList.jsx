@@ -5,18 +5,18 @@ const UserList = () => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
 
-  // Fetch users on component mount
+  // Fetch users 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await fetch('http://localhost:4000/api/v1/get-users', {
           method: 'GET',
-          credentials: 'include', // Include cookies for authentication
+          credentials: 'include', 
         });
 
         if (response.ok) {
           const data = await response.json();
-          setUsers(data.users); // Store users in state
+          setUsers(data.users); 
           setError('');
         } else {
           setError('Failed to fetch users.');
@@ -26,16 +26,16 @@ const UserList = () => {
       }
     };
 
-    fetchUsers(); // Fetch users when component mounts
+    fetchUsers(); // Fetch users
   }, []);
 
-  // Function to toggle user status (enable/disable)
+  // user status (enable/disable)
   const toggleUserStatus = async (userId, currentStatus) => {
     const endpoint = currentStatus ? 'disable' : 'enable';
     try {
       const response = await fetch(`http://localhost:4000/api/v1/users/${endpoint}/${userId}`, {
         method: 'PUT',
-        credentials: 'include', // Include cookies for authentication
+        credentials: 'include', 
       });
 
       if (response.ok) {
@@ -49,7 +49,7 @@ const UserList = () => {
           return user;
         });
 
-        setUsers(updatedUsers); // Store updated users in state
+        setUsers(updatedUsers); 
         setError('');
       } else {
         const errorData = await response.json();

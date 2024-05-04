@@ -1,43 +1,43 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Allows redirect after successful creation
-import './AddUser.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
+import "./AddUser.css";
 
 const AddUser = () => {
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const navigate = useNavigate(); // To navigate after successful operation
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate(); 
 
   const handleAddUser = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:4000/api/v1/create-user', {
-        method: 'POST',
+      const response = await fetch("http://localhost:4000/api/v1/create-user", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ userId, password }),
-        credentials: 'include', // Include cookies for authentication
+        credentials: "include", 
       });
 
       if (response.ok) {
         const data = await response.json();
-        setSuccessMessage(data.message); // Display success message
+        setSuccessMessage(data.message); 
         alert("User created successfully.");
-        setUserId('');
-        setPassword('');
-        setError('');
-        navigate('/admin/dashboard'); // Redirect to the dashboard
+        setUserId("");
+        setPassword("");
+        setError("");
+        navigate("/admin/dashboard"); 
       } else {
         const errorData = await response.json();
-        setError(errorData.message || 'Failed to create user.');
-        setSuccessMessage('');
+        setError(errorData.message || "Failed to create user.");
+        setSuccessMessage("");
       }
     } catch (err) {
-      setError('An error occurred while creating the user.');
-      setSuccessMessage('');
+      setError("An error occurred while creating the user.");
+      setSuccessMessage("");
     }
   };
 
@@ -66,8 +66,8 @@ const AddUser = () => {
         <button type="submit">Add User</button>
       </form>
 
-      {error && <p className="error-message">{error}</p>} 
-      {successMessage && <p className="success-message">{successMessage}</p>} 
+      {error && <p className="error-message">{error}</p>}
+      {successMessage && <p className="success-message">{successMessage}</p>}
     </div>
   );
 };

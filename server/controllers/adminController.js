@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import Admin from "../models/adminModel.js";
 import {
-  sendResetPasswordEmail,
   sendVerificationEmail,
 } from "../utils/sendMail.js";
 import User from "../models/userModel.js";
@@ -43,7 +42,7 @@ export const adminRegistration = async (req, res) => {
   }
 };
 
-// Route for email verification
+// admin email verification
 export const AdminVerifyEmail = async (req, res) => {
   try {
     const { email, verificationCode } = req.body;
@@ -65,7 +64,7 @@ export const AdminVerifyEmail = async (req, res) => {
   }
 };
 
-// Route for super-admin login
+// admin login
 
 export const AdminLogin = async (req, res) => {
   try {
@@ -136,49 +135,6 @@ export const createUser = async (req, res) => {
   }
 };
 
-//user login
-export const userLogin = async (req, res) => {
-  try {
-    const { userId, password } = req.body;
-    if (!userId || !password) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
-    const user = await User.findOne({ userId });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    if (!user.status) {
-      return res
-        .status(400)
-        .json({ message: "User not verified. Contact admin." });
-    }
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) {
-      return res.status(400).json({ message: "Incorrect password" });
-    }
-    // Create a JWT token with user payload
-    const payload = {
-      user: {
-        id: user.id,
-        userId: user.userId,
-      },
-    };
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      { expiresIn: "24h" },
-      (err, token) => {
-        if (err) {
-          throw err;
-        }
-        res.cookie("authToken", token, { expiresIn: 72 * 60 * 60 * 1000 });
-        res.status(200).json({ message: "Login successful", token });
-      }
-    );
-  } catch (err) {
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
 
 //get all users
 export const getUsers = async (req, res) => {
@@ -220,6 +176,50 @@ export const enableUser = async (req, res) => {
     const savedUser = await user.save();
     res.status(200).json({ savedUser, message: "User enabled successfully" });
   } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+//user login
+export const userLogin = async (req, res) => {
+  try {
+    const { userId, password } = req.body;
+    if (!userId || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+    const user = await User.findOne({ userId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    if (!user.status) {
+      return res
+        .status(400)
+        .json({ message: "User not verified. Contact admin." });
+    }
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Incorrect password" });
+    }
+    // Create a JWT token with user payload
+    const payload = {
+      user: {
+        id: user.id,
+        userId: user.userId,
+      },
+    };
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET,
+      { expiresIn: "24h" },
+      (err, token) => {
+        if (err) {
+          throw err;
+        }
+        res.cookie("authToken", token, { expiresIn: 72 * 60 * 60 * 1000 });
+        res.status(200).json({ message: "Login successful", token });
+      }
+    );
+  } catch (err) {
     res.status(500).json({ message: "Internal server error" });
   }
 };

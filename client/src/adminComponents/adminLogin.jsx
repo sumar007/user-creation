@@ -1,36 +1,38 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './AdminLogin.css'; // Import the CSS file
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./AdminLogin.css";
 
 const AdminLogin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate(); // For redirecting after successful login
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:4000/api/v1/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:4000/api/v1/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
-        credentials: 'include', // Ensure cookies are included
+        credentials: "include",
       });
-console.log(response)
+      console.log(response);
       if (response.ok) {
-        alert('Successfully logged in');
-        navigate('/admin/dashboard'); // Redirect to the admin dashboard upon success
-        setErrorMessage(''); // Clear error messages
+        alert("Successfully logged in");
+        navigate("/admin/dashboard");
+        setErrorMessage("");
       } else {
         const errorData = (await response.json()).message;
-        setErrorMessage(errorData || 'Login failed');
+        setErrorMessage(errorData || "Login failed");
       }
     } catch (error) {
-      setErrorMessage('An error occurred during login. Please try again later.');
+      setErrorMessage(
+        "An error occurred during login. Please try again later."
+      );
     }
   };
 
@@ -56,9 +58,11 @@ console.log(response)
             required
           />
         </div>
-        <button className="login-button" type="submit">Login</button>
+        <button className="login-button" type="submit">
+          Login
+        </button>
         <Link to="/admin/register" className="register-link">
-        <button className="register-button">Register</button>
+          <button className="register-button">Register</button>
         </Link>
       </form>
 

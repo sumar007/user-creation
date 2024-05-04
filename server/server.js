@@ -11,19 +11,19 @@ dotenv.config();
 const port = process.env.PORT || 5000;
 const app = express();
 app.use(express.json());
-// Enable CORS for all routes and specify allowed origins
+// Enable CORS 
 app.use(cors({
-    origin: 'http://localhost:5173', // Allow requests from this origin
-    methods: 'GET,POST,PUT,PATCH,DELETE,OPTIONS', // Allowed HTTP methods
-    credentials: true, // Allow sending cookies
+    origin: 'http://localhost:5173', 
+    methods: 'GET,POST,PUT,PATCH,DELETE,OPTIONS', 
+    credentials: true, 
   }));
 //routes
 app.use("/api/v1/",router)
 
 
 //testing route
-app.get("/", (req, res) => {
-    res.send("Hello World!");
+app.get("/health-check", (req, res) => {
+    res.send("no worries!, server is up and running");
 });
 
 
