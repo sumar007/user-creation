@@ -1,0 +1,40 @@
+/* AdminDashboard.css */
+.admin-dashboard-container {
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    text-align: center; /* Center-aligns all text and content */
+  }
+  
+  .admin-dashboard-container h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-buttons {
+    display: flex;
+    justify-content: space-evenly; /* Space the buttons evenly */
+    flex-wrap: wrap; /* Allow buttons to wrap if needed */
+  }
+  
+  .dashboard-buttons a {
+    text-decoration: none; /* Remove default link underline */
+  }
+  
+  .dashboard-buttons button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition on hover */
+  }
+  
+  .dashboard-buttons button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  

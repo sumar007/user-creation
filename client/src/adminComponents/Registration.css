@@ -1,0 +1,77 @@
+/* Registration.css */
+.registration-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .registration-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .registration-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .registration-container .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .registration-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .registration-container input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .registration-container input:focus {
+    outline: none;
+    border-color: #4CAF50;
+  }
+  
+  .registration-container button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .registration-container button:hover {
+    background-color: #45a049;
+  }
+  
+  .registration-container .error-message {
+    color: red;
+    text-align: center;
+  }
+  
+  .registration-container .success-message {
+    color: green;
+    text-align: center;
+  }
+  .login-button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #3db941;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
